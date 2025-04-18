@@ -1,5 +1,6 @@
 package com.bridgelabz.employee_payroll.controller;
 
+import com.bridgelabz.employee_payroll.dto.EmployeeDTO;
 import com.bridgelabz.employee_payroll.dto.ResponseDTO;
 import com.bridgelabz.employee_payroll.model.Employee;
 import com.bridgelabz.employee_payroll.service.IEmployeeService;
@@ -34,17 +35,17 @@ public class EmployeeController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseDTO> createEmployeeData(@RequestBody Employee employee){
+    public ResponseEntity<ResponseDTO> createEmployeeData(@RequestBody EmployeeDTO employeeDTO){
         Employee emp = null;
-        emp = employeeService.createEmployee(employee);
+        emp = employeeService.createEmployee(employeeDTO);
         ResponseDTO responseDTO = new ResponseDTO(emp, "Created Employee Payroll Data successfully");
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<ResponseDTO> updateEmployeeData(@RequestBody Employee employee){
+    @PutMapping("/update/{empId}")
+    public ResponseEntity<ResponseDTO> updateEmployeeData(@RequestBody EmployeeDTO employeeDTO, @PathVariable Long empId){
         Employee emp = null;
-        emp = employeeService.updateEmployee(employee);
+        emp = employeeService.updateEmployee(empId, employeeDTO);
         ResponseDTO responseDTO = new ResponseDTO(emp, "Updated Employee Payroll Data successfully");
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
