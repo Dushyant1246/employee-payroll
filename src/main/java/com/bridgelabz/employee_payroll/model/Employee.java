@@ -21,8 +21,7 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
-    public Employee(Long employeeId, EmployeeDTO employeeDTO) {
-        this.employeeId = employeeId;
+    public Employee(EmployeeDTO employeeDTO) {
         this.name = employeeDTO.getName();
         this.salary = employeeDTO.getSalary();
     }
