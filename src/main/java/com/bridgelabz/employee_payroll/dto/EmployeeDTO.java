@@ -1,30 +1,40 @@
 package com.bridgelabz.employee_payroll.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class EmployeeDTO {
 
-    private String name;
-    private double salary;
+    @Pattern(regexp="^[A-Z]{1}[a-zA-Z\\s]{2,}$", message="Employee name Invalid")
+    public String name;
 
-    public EmployeeDTO(String name, double salary){
-        this.name = name;
-        this.salary = salary;
-    }
+    @Min(value=500, message="Min wage should be more than 500")
+    public long salary;
 
-    public EmployeeDTO(){}
-    public double getSalary() {
-        return salary;
-    }
+    @Pattern(regexp="male|female",message = "Gender needs to be male or female")
+    public String gender;
 
-    public void setSalary(double salary) {
-        this.salary = salary;
-    }
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "startDate should not be empty")
+    @PastOrPresent(message = "startDate should be past or today date")
+    public LocalDate startDate;
 
-    public String getName() {
-        return name;
-    }
+    @NotBlank(message = "note cannot be empty")
+    public String note;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @NotBlank(message = "profilePic cannot be empty")
+    public String profilePic;
+
+    @NotNull(message = "department should not be empty")
+    public List<String> department;
 
 }

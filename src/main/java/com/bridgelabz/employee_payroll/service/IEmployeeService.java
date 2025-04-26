@@ -7,8 +7,14 @@ import java.util.List;
 
 public interface IEmployeeService {
     List<Employee> getEmployee();
+
     Employee getEmployeeById(Long empId);
-    Employee createEmployee(EmployeeDTO employeeDTO);
-    Employee updateEmployee(Long employeeId, EmployeeDTO employeeDTO);
-    void deleteEmployee(Long empId);
+
+    Employee createEmployee(EmployeeDTO empPayrollDTO);
+
+    Employee updateEmployee(Long empId, EmployeeDTO empPayrollDTO);
+
+    void deleteEmployee(Long empID);
+
+    List<Employee> getEmployeesByDepartment(String department);
 }

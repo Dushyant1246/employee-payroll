@@ -1,11 +1,14 @@
 package com.bridgelabz.employee_payroll.model;
 
 import com.bridgelabz.employee_payroll.dto.EmployeeDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
+@Data
+@Table(name = "employee_payroll")
 @Entity
 public class Employee {
 
@@ -13,40 +16,32 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long employeeId;
     private String name;
-    private double salary;
+    private long salary;
+    private LocalDate startDate;
+    private String note;
+    private String profilePic;
 
-    public Employee(){}
+    @ElementCollection
+    @CollectionTable(name = "employee_department", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "department")
+    private List<String> departments;
 
-    public Employee(Long employeeId){
-        this.employeeId = employeeId;
-    }
 
     public Employee(EmployeeDTO employeeDTO) {
         this.name = employeeDTO.getName();
         this.salary = employeeDTO.getSalary();
+        this.startDate = employeeDTO.getStartDate();
+        this.note = employeeDTO.getNote();
+        this.profilePic = employeeDTO.getProfilePic();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getSalary() {
-        return salary;
-    }
-
-    public void setSalary(double salary) {
-        this.salary = salary;
-    }
-
-    public long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(long employeeId) {
+    public Employee(Long employeeId, EmployeeDTO employeeDTO) {
         this.employeeId = employeeId;
+        this.name = employeeDTO.getName();
+        this.salary = employeeDTO.getSalary();
+        this.startDate = employeeDTO.getStartDate();
+        this.note = employeeDTO.getNote();
+        this.profilePic = employeeDTO.getProfilePic();
     }
+
 }
